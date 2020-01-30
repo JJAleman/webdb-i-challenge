@@ -14,4 +14,15 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    try{
+        const account = await db('account')
+        .where('id', id)
+        res.status(200).json({message: `Retrieved account`, account})
+    } catch(err){
+        res.status(500).json({message: 'Failed to get post'});
+    }
+});
+
 module.exports = router;
