@@ -46,4 +46,15 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) =>{
+    try {
+        const rowsDeleted = await db("accounts")
+        .where("id", req.params.id)
+        .del();
+        res.json({ deletedRecords: rowsDeleted});
+    } catch(err){
+        res.status(500).json({ message: "Failed to delete account" });
+    }
+});
+
 module.exports = router;
